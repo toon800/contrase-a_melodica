@@ -1,4 +1,6 @@
 import hashlib
+import pygame
+import time
 
 def generar_melodia(frase):
     notas = {
@@ -25,6 +27,20 @@ def convertir_a_contraseña(melodia):
     contraseña = hashlib.sha256(''.join(melodia).encode()).hexdigest()
     return contraseña
 
+def reproducir_melodia(melodia):
+    pygame.init()
+    clock = pygame.time.Clock()
+    pygame.mixer.init()
+
+    for nota in melodia:
+        if nota != ' ':
+            sound = pygame.mixer.Sound(f"notas/{nota}.wav")
+            sound.play()
+            time.sleep(0.5)  # Pausa entre notas
+            pygame.time.wait(int(sound.get_length() * 1000))
+
+    pygame.mixer.quit()
+
 def main():
     # Ingresa una frase para generar la contraseña melódica
     frase = input("Ingresa una frase: ")
@@ -36,6 +52,9 @@ def main():
     # Muestra la melodía y la contraseña generada
     print(f"Melodía generada: {' '.join(melodia)}")
     print(f"Contraseña generada: {contraseña}")
+
+    # Reproduce la melodía
+    reproducir_melodia(melodia)
 
 if __name__ == "__main__":
     main()
