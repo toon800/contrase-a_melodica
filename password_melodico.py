@@ -41,6 +41,16 @@ def reproducir_melodia(melodia):
 
     pygame.mixer.quit()
 
+def exportar_a_archivo(contraseña):
+    # Pide al usuario la ubicación y el nombre del archivo
+    ubicacion_archivo = input("Ingrese la ubicación y el nombre del archivo (por ejemplo, /ruta/del/archivo/contraseña.txt): ")
+
+    # Guarda la contraseña en el archivo especificado por el usuario
+    with open(ubicacion_archivo, "w") as archivo:
+        archivo.write(f"Contraseña generada: {contraseña}")
+    print(f"Contraseña exportada exitosamente al archivo '{ubicacion_archivo}'.")
+
+
 def main():
     # Ingresa una frase para generar la contraseña melódica
     frase = input("Ingresa una frase: ")
